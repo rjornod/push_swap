@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 14:03:32 by rojornod          #+#    #+#             */
-/*   Updated: 2024/12/17 13:29:22 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:28:18 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ char	*read_and_join(int fd, char *buffer, char *line);
 void	manage_buffer(char *buffer);
 char	*ft_strdup(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-
 
 #endif
