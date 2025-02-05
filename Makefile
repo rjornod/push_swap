@@ -3,7 +3,8 @@ CFLAGS = -Wextra -Wall -Werror
 SRC = 	sources/push_swap.c \
 		sources/functions.c \
 		sources/rotate.c \
-		sources/string_input.c
+		sources/string_input.c \
+		sources/algorithm.c
 OBJS = $(SRC:.c=.o)
 INCLUDES = -Ilibft -Ift_printf
 LIBFT = libft/libft.a
