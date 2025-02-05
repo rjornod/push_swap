@@ -2,7 +2,8 @@ NAME = push_swap
 CFLAGS = -Wextra -Wall -Werror
 SRC = 	sources/push_swap.c \
 		sources/functions.c \
-		sources/rotate.c
+		sources/rotate.c \
+		sources/string_input.c
 OBJS = $(SRC:.c=.o)
 INCLUDES = -Ilibft -Ift_printf
 LIBFT = libft/libft.a

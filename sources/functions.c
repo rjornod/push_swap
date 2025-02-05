@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:19:49 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/04 16:04:40 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:44:26 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	push_b(t_stack *stack)
 		i--;
 	}
 	stack->stack_b[0] = stack->stack_a[0];
-	stack->elem_count_b++;
 	i = 0;
 	while (i < stack->elem_count_a - 1)
 	{

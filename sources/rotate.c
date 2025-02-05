@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:45:46 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/04 16:02:28 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:30:55 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	rotate_b(t_stack *stack)
 		i++;
 	}
 	stack->stack_b[stack->elem_count_b - 1] = temp;
+	ft_printf("%d\n", stack->elem_count_b - 1 );
 	ft_printf("rb\n");
 }
 
