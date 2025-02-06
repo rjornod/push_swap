@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:31:26 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/05 16:13:21 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:12:43 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 int	*string_input(t_stack *stack, char **argv)
 {
 	int		i;
+
 	stack->digits = ft_split(argv[1], ' ');
 	if (!stack->digits)
-		error_message("error assigning memory to digits in string_input");
+		error_message("Error assigning memory to digits in string_input");
 	stack->digi_count = 0;
 	while (stack->digits[stack->digi_count])
 		stack->digi_count++;
+	if (stack->digi_count == 1)
+	{
+		free_array(stack->digits);
+		free(stack);
+		error_message("Error only one digit in string input\n");
+	}
 	stack->elem_total = stack->digi_count;
 	stack->stack_a = (int *)malloc((stack->elem_total) * sizeof(int));
 	if (!stack->stack_a)
@@ -28,23 +35,39 @@ int	*string_input(t_stack *stack, char **argv)
 	i = 0;
 	while (i < stack->elem_total)
 	{
-		if (check_valid_number(stack->digits[i]) == false)
-		{
-			error_message("Invalid number in string input\n");
-			free(stack->stack_a); 
-			free_array(stack->digits);
-		}
+		check_valid_number(stack->digits[i], stack);
 		stack->stack_a[i] = ft_atoi(stack->digits[i]);
+		check_duplicate(stack, i);
 		i++;
 	}
 	free_array(stack->digits);
 	return (stack->stack_a);
 }
 
+void	check_duplicate(t_stack *stack, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		if (stack->stack_a[i] == stack->stack_a[j])
+		{
+			free(stack->stack_a);
+			free_array(stack->digits);
+			free(stack);
+			error_message("number exists already");
+		}
+		j++;
+	}
+}
+
 void	free_array(char **array)
 {
 	int	i;
 
+	if (!array)
+		return ;
 	i = 0;
 	while (array[i])
 		free(array[i++]);

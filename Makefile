@@ -4,16 +4,18 @@ SRC = 	sources/push_swap.c \
 		sources/functions.c \
 		sources/rotate.c \
 		sources/string_input.c \
-		sources/algorithm.c
+		sources/algorithm.c \
+		sources/helper_funcs.c
 OBJS = $(SRC:.c=.o)
 INCLUDES = -Ilibft -Ift_printf
 LIBFT = libft/libft.a
 PRINTF = libft/ft_printf/libftprintf.a
+CC = cc
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(MLX_LIB_DIR) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(PRINTF)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

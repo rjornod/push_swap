@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/05 15:05:18 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:11:03 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,12 @@ void	rev_rot_b(t_stack *stack);
 void	rev_rot_a_b(t_stack *stack);
 int		*string_input(t_stack *stack, char **argv);
 void	free_array(char **array);
-bool	check_valid_number(const char *str);
+bool	check_valid_number(const char *str, t_stack *stack);
+void	check_duplicate(t_stack *stack, int i);
+void	push_swap(t_stack *stack);
 void	error_message(char *message);
+void	print_stacks(t_stack *stack);
+void	print_stacks(t_stack *stack);
+void	init_struct(t_stack *stack);
+int		*init_stack_b(t_stack *stack);
+bool	is_sorted(t_stack *stack);
