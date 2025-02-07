@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:31:26 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/06 16:12:43 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:06:37 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int	*string_input(t_stack *stack, char **argv)
 	return (stack->stack_a);
 }
 
+/*
+	This function when called checks for duplicate characters on stack a
+*/
 void	check_duplicate(t_stack *stack, int i)
 {
 	int	j;
@@ -62,6 +65,10 @@ void	check_duplicate(t_stack *stack, int i)
 	}
 }
 
+/*
+	This function frees an array and all its individual allocations
+	Using it mostly to free **digits
+*/
 void	free_array(char **array)
 {
 	int	i;

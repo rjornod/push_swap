@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:25:58 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/06 16:42:57 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:43:36 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ bool	check_valid_number(const char *str, t_stack *stack)
 	}
 	return (true);
 }
-
+/*
+	This function checks if the number of arguments passed
+*/
 int	*convert_input(int argc, char **argv, t_stack *stack)
 {
 	int	i;
@@ -64,16 +66,15 @@ int	main(int argc, char **argv)
 	t_stack	*stack = NULL;
 	if (argc == 1)
 		return (-1);
-	if (argc < 2)
-		error_message("You can't do that for now");
 
 	ft_printf("Initialzing stack to null...\n");
-	ft_printf("Stack initialized!\n");
 	
 	ft_printf("Mallocing stack...\n");
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		error_message("Error assigning memory in main");
+	ft_printf("Stack initialized!\n");
+	ft_memset(stack, 0, sizeof(t_stack));
 	ft_printf("Malloc successful\n");
 	stack->digits = NULL;
 	
@@ -81,14 +82,20 @@ int	main(int argc, char **argv)
 	
 	if (convert_input(argc, argv, stack) == NULL)
 			error_message("Error\n");
-			
 	init_struct(stack);
-
 	ft_printf("\n\nPrinting original stacks\n");
 	init_stack_b(stack);
 	print_stacks(stack);
-	push_swap(stack);
+	find_high_low(stack, stack->stack_a, stack->elem_count_a);
 
+	push_swap(stack);
+	
+	ft_printf("\n\nPrinting stacks after first push\n");
+	print_stacks(stack);
+	ft_printf("\n\nFinding MIN AND MAX  in Stack A\n");
+	find_high_low(stack, stack->stack_a, stack->elem_count_a);
+	ft_printf("\n\nFinding MIN AND MAX  in Stack B\n");
+	find_high_low(stack, stack->stack_b, stack->elem_count_b);
 	// ft_printf("\n----------Elem count of A is : %d--------------", stack->elem_count_a);
 	// ft_printf("\n\nSwapping first 2 elements in stack A\n");
 	// swap_stack_a(stack);

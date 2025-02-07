@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/06 17:11:03 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:37:20 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ typedef struct s_stack
 	int		elem_total;
 	int		elem_count_a;
 	int		elem_count_b;
+	int		max_elem;
+	int		min_elem;
+	int		max_index;
+	int		min_index;
 }	t_stack;
 
 void	swap_stack_a(t_stack *stack);
@@ -46,4 +50,6 @@ void	print_stacks(t_stack *stack);
 void	print_stacks(t_stack *stack);
 void	init_struct(t_stack *stack);
 int		*init_stack_b(t_stack *stack);
-bool	is_sorted(t_stack *stack);
+bool	is_sorted(t_stack *stack, int *sort_stack);
+void	sort_three(t_stack *stack);
+void	find_high_low(t_stack *stack, int *sort_stack, int elem_count);

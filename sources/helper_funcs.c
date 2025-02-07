@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:54:23 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/06 16:21:43 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:04:14 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	print_stacks(t_stack *stack)
 		ft_printf("[%d] ", stack->stack_b[i]);
 		i++;
 	}
+	ft_printf("\n\n");
 }
 
 void	error_message(char *message)
