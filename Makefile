@@ -3,7 +3,7 @@ CFLAGS = -Wextra -Wall -Werror
 SRC = 	sources/push_swap.c \
 		sources/functions.c \
 		sources/rotate.c \
-		sources/string_input.c \
+		sources/one_arg.c \
 		sources/algorithm.c \
 		sources/helper_funcs.c
 OBJS = $(SRC:.c=.o)

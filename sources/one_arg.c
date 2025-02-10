@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_input.c                                     :+:      :+:    :+:   */
+/*   one_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:31:26 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/07 15:06:37 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:55:34 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	*string_input(t_stack *stack, char **argv)
+int	*one_arg(t_stack *stack, char **argv)
 {
 	int		i;
-
+	(void) argv;
 	stack->digits = ft_split(argv[1], ' ');
 	if (!stack->digits)
-		error_message("Error assigning memory to digits in string_input");
+		return (ft_printf("Error assigning memory to digits in one_arg\n"),free(stack), NULL);
 	stack->digi_count = 0;
 	while (stack->digits[stack->digi_count])
 		stack->digi_count++;
 	if (stack->digi_count == 1)
-	{
-		free_array(stack->digits);
-		free(stack);
-		error_message("Error only one digit in string input\n");
-	}
+		return(free_array(stack->digits), free(stack),
+			ft_printf("Error\n only one digit in string input\n"), NULL);
 	stack->elem_total = stack->digi_count;
 	stack->stack_a = (int *)malloc((stack->elem_total) * sizeof(int));
 	if (!stack->stack_a)
@@ -45,7 +42,8 @@ int	*string_input(t_stack *stack, char **argv)
 }
 
 /*
-	This function when called checks for duplicate characters on stack a
+	This function is called when validating the arguments given
+	and it checks for duplicate characters on stack a
 */
 void	check_duplicate(t_stack *stack, int i)
 {

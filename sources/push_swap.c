@@ -6,12 +6,16 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:25:58 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/07 14:43:36 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:54:19 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
+/*
+	This functions checks each argument given to see if its a valid number.
+	Returns true or false
+*/
 bool	check_valid_number(const char *str, t_stack *stack)
 {
 	int	i;
@@ -34,15 +38,22 @@ bool	check_valid_number(const char *str, t_stack *stack)
 	}
 	return (true);
 }
+
 /*
-	This function checks if the number of arguments passed
+	This function checks how many arguments have been passed, if its 2 it calls
+	one_arg, if more it figures out the size of the stack, allocates 
+	enough memory for it and checks one by one if all arguments are 
+	valid digits. returns stack_a if it passes all the checks
 */
 int	*convert_input(int argc, char **argv, t_stack *stack)
 {
 	int	i;
 
 	if (argc == 2)
-		string_input(stack, argv);
+	{		
+		if(one_arg(stack, argv) == NULL)
+			error_message("Error\n");
+	}
 	else
 	{
 		stack->elem_total = argc - 1;
@@ -86,16 +97,16 @@ int	main(int argc, char **argv)
 	ft_printf("\n\nPrinting original stacks\n");
 	init_stack_b(stack);
 	print_stacks(stack);
-	find_high_low(stack, stack->stack_a, stack->elem_count_a);
+	// find_high_low_a(stack, stack->stack_a, stack->elem_count_a);
 
 	push_swap(stack);
 	
 	ft_printf("\n\nPrinting stacks after first push\n");
 	print_stacks(stack);
-	ft_printf("\n\nFinding MIN AND MAX  in Stack A\n");
-	find_high_low(stack, stack->stack_a, stack->elem_count_a);
-	ft_printf("\n\nFinding MIN AND MAX  in Stack B\n");
-	find_high_low(stack, stack->stack_b, stack->elem_count_b);
+	// ft_printf("\n\nFinding MIN AND MAX  in Stack A\n");
+	// find_high_low_a(stack, stack->stack_a, stack->elem_count_a);
+	// ft_printf("\n\nFinding MIN AND MAX  in Stack B\n");
+	// find_high_low_a(stack, stack->stack_b, stack->elem_count_b);
 	// ft_printf("\n----------Elem count of A is : %d--------------", stack->elem_count_a);
 	// ft_printf("\n\nSwapping first 2 elements in stack A\n");
 	// swap_stack_a(stack);
