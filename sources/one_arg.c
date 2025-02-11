@@ -15,15 +15,16 @@
 int	*one_arg(t_stack *stack, char **argv)
 {
 	int		i;
+
 	(void) argv;
 	stack->digits = ft_split(argv[1], ' ');
 	if (!stack->digits)
-		return (ft_printf("Error assigning memory to digits in one_arg\n"),free(stack), NULL);
+		return (ft_printf("Error with array in one_arg\n"), free(stack), NULL);
 	stack->digi_count = 0;
 	while (stack->digits[stack->digi_count])
 		stack->digi_count++;
 	if (stack->digi_count == 1)
-		return(free_array(stack->digits), free(stack),
+		return (free_array(stack->digits), free(stack),
 			ft_printf("Error\n only one digit in string input\n"), NULL);
 	stack->elem_total = stack->digi_count;
 	stack->stack_a = (int *)malloc((stack->elem_total) * sizeof(int));

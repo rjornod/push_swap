@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/10 16:53:59 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:34:51 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,4 @@ bool	is_sorted(t_stack *stack, int *sort_stack);
 void	sort_three(t_stack *stack);
 void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count);
 int		get_cost(int index, int size);
+int		calculate_total_cost(t_stack *stack);
