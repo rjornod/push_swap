@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:49:20 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/11 17:11:14 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:07:35 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	push_swap(t_stack *stack)
 	cost = 0;
 	cheapest_index = 0;
 	cheapest = cost;
-	push_b(stack);
 	push_b(stack);
 	push_b(stack);
 	push_b(stack);
