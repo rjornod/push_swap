@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:54:23 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/07 11:04:14 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:02:36 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,21 @@ void	error_message(char *message)
 	ft_printf("%s", message);
 	exit(EXIT_FAILURE);
 }
+
+/*
+	This function frees an array and all its individual allocations
+	Using it mostly to free **digits
+*/
+void	free_array(char **array)
+{
+	int	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
+}
+
+

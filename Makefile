@@ -3,7 +3,7 @@ CFLAGS = -Wextra -Wall -Werror
 SRC = 	sources/push_swap.c \
 		sources/functions.c \
 		sources/rotate.c \
-		sources/one_arg.c \
+		sources/validation.c \
 		sources/algorithm.c \
 		sources/cost_calc.c \
 		sources/helper_funcs.c

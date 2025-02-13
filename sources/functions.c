@@ -6,13 +6,13 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:19:49 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/05 14:44:26 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:32:18 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	swap_stack_a(t_stack *stack)
+void	swap_a(t_stack *stack)
 {
 	int	temp;
 
@@ -24,7 +24,7 @@ void	swap_stack_a(t_stack *stack)
 	ft_printf("sa\n");
 }
 
-void	swap_stack_b(t_stack *stack)
+void	swap_b(t_stack *stack)
 {
 	int	temp;
 
@@ -38,8 +38,8 @@ void	swap_stack_b(t_stack *stack)
 
 void	swap_a_b(t_stack *stack)
 {
-	swap_stack_a(stack);
-	swap_stack_b(stack);
+	swap_a(stack);
+	swap_b(stack);
 	ft_printf("ss\n");
 }
 

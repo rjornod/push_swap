@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/11 14:34:51 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:11:09 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_stack
 	int		a_min_index;
 }	t_stack;
 
-void	swap_stack_a(t_stack *stack);
-void	swap_stack_b(t_stack *stack);
+void	swap_a(t_stack *stack);
+void	swap_b(t_stack *stack);
 void	push_b(t_stack *stack);
 void	push_a(t_stack *stack);
 void	swap_a_b(t_stack *stack);
@@ -56,8 +56,10 @@ void	print_stacks(t_stack *stack);
 void	print_stacks(t_stack *stack);
 void	init_struct(t_stack *stack);
 int		*init_stack_b(t_stack *stack);
-bool	is_sorted(t_stack *stack, int *sort_stack);
+bool	is_sorted(int *sort_stack, int elem_count);
 void	sort_three(t_stack *stack);
 void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count);
 int		get_cost(int index, int size);
-int		calculate_total_cost(t_stack *stack);
+int		calculate_cheapest(t_stack *stack, int candidate);
+int		*validate_input(int argc, char **argv, t_stack *stack);
+void	move_a_to_b(t_stack *stack, int index, int cost);
