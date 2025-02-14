@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 17:11:09 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:02:36 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_stack
 	int		a_min_elem;
 	int		a_max_index;
 	int		a_min_index;
+	int		cost_of_rot;
 }	t_stack;
 
 void	swap_a(t_stack *stack);
@@ -60,6 +61,7 @@ bool	is_sorted(int *sort_stack, int elem_count);
 void	sort_three(t_stack *stack);
 void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count);
 int		get_cost(int index, int size);
-int		calculate_cheapest(t_stack *stack, int candidate);
+int		calculate_cost(t_stack *stack, int candidate);
 int		*validate_input(int argc, char **argv, t_stack *stack);
-void	move_a_to_b(t_stack *stack, int index, int cost);
+void	move_a_to_b(t_stack *stack, int index, int value, int cost);
+int		ft_abs(int n);

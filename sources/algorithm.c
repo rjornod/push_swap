@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:49:20 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 17:31:37 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:55:54 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 void	push_swap(t_stack *stack)
 {
 	int	i;
+	int	j;
 	int	cost;
+	int	cost_to_move;
 	int	cheapest;
 	int	cheapest_index;
 
 	i = 0;
+	j = 0;
 	cost = 0;
 	cheapest_index = 0;
 	cheapest = cost;
@@ -31,37 +34,41 @@ void	push_swap(t_stack *stack)
 		push_b(stack);
 	if (stack->elem_count_a > 3)
 		push_b(stack);
+	print_stacks(stack);
+	cheapest = calculate_cost(stack, i);
+	i = stack->elem_count_a;
+	while (i > 3)
+	{
+		while (++j < stack->elem_count_a)
+		{
+			cost = calculate_cost(stack, j);
+			if (cost < cheapest)
+			{
+				cheapest = ft_abs(cost);
+				cheapest_index = j;
+				cost_to_move = cost;
+			}
+			ft_printf("\nthe cheapest number to move is [%d] with [%d] moves\n", cheapest_index, cheapest);
+		}
+		move_a_to_b(stack, cheapest_index, cheapest, cost_to_move);
+		i--;
+	}
+	
 	if (stack->elem_count_a == 3)
 		sort_three(stack);
 	print_stacks(stack);
-	cheapest = calculate_cheapest(stack, i);
-	while (++i < stack->elem_count_a)
-	{
-		cost = calculate_cheapest(stack, i);
-		if (cost < cheapest)
-		{
-			cheapest = cost;
-			cheapest_index = i;
-		}
-	}
-	ft_printf("the cheapest is index [%d] with [%d] moves", cheapest_index, cheapest);
-	move_a_to_b(stack, cheapest_index, cheapest);
-	print_stacks(stack);
 }
 
-void	move_a_to_b(t_stack *stack, int cheapest_index, int cheapest)
+void	move_a_to_b(t_stack *stack, int cheapest_index, int cheapest, int cost)
 {
-	ft_printf("\ninsde move a to b\n");
-	ft_printf("\ncost is [%d]\n", cheapest);
 	(void)cheapest_index;
-	if (cheapest == 0)
-		swap_a(stack);
-	else if (cheapest < 0)
+	(void)cheapest;
+	if (cost < 0)
 	{
 		rev_rot_a(stack);
 		swap_a(stack);
 	}
-	else if (cheapest > 0)
+	else if (cost > 0)
 	{
 		rotate_a(stack);
 		swap_a(stack);
@@ -101,7 +108,7 @@ void	sort_three(t_stack *stack)
 		rotate_a(stack);
 	}
 	else if (a < b && b > c && a > c)
-		rev_rot_a(stack); 
+		rev_rot_a(stack);
 }
 
 /*

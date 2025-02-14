@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:30:50 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 17:03:15 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:46:16 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,31 @@ void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count)
 static int	find_target_index(t_stack *stack, int candidate)
 {
 	int	i;
+	int	target_index;
+	int	best_diff;
+	int	diff;
+
+	target_index = -1;
+	best_diff = -1;
 
 	i = 0;
 	while (i < stack->elem_count_b)
 	{
-		if (candidate > stack->stack_b[i])
-			break ;
+		if (stack->stack_b[i] < candidate)
+		{
+			diff = candidate - stack->stack_b[i];
+			if (best_diff == -1 || diff < best_diff)
+			{
+				best_diff = diff;
+				target_index = i;
+			}
+		}
 		i++;
 	}
-	return (i);
+	if (target_index == -1)
+		target_index =stack->elem_count_b;
+	{ft_printf("\nthe ideal index for candidate [%d] is [%d]\n", candidate, target_index);}
+	return (target_index);
 }
 
 /*
@@ -92,12 +108,12 @@ static int	find_target_index(t_stack *stack, int candidate)
 	This function will calculate the total cost (cost_a + cost_b) of each
 	candidate
 */
-int	calculate_cheapest(t_stack *stack, int candidate)
+int	calculate_cost(t_stack *stack, int candidate)
 {
 	int	cost_a;
 	int	cost_b;
-	int	abs_a;
-	int	abs_b;
+	// int	abs_a;
+	// int	abs_b;
 	int	target_b;
 	int	total_cost;
 	int	overlap;
@@ -106,22 +122,24 @@ int	calculate_cheapest(t_stack *stack, int candidate)
 	cost_a = get_cost(candidate, stack->elem_count_a);
 	target_b = find_target_index(stack, stack->stack_a[candidate]);
 	cost_b = get_cost(target_b, stack->elem_count_b);
-	abs_a = ft_abs(cost_a);
-	abs_b = ft_abs(cost_b);
+	// abs_a = ft_abs(cost_a);
+	// abs_b = ft_abs(cost_b);
 	if ((cost_a < 0 && cost_b < 0) || (cost_a > 0 && cost_b > 0))
 	{
-		overlap = ft_min(abs_a, abs_b);
-		total_cost = (abs_a + abs_b) - overlap;
+		overlap = ft_min(cost_a, cost_b);
+		total_cost = (cost_a + cost_b) - overlap;
 	}
 	else
-		total_cost = abs_a + abs_b;
+		total_cost = cost_a + cost_b;
+
+	ft_printf("the total cost to move is [%d]\n", total_cost);
 	return (total_cost);
 }
 
 /*
 	This function calculates the cost of moving something to stack b based 
-	on the position of the candidate. 
-	
+	on the position of the candidate.
+
 	If index is on the top half: 
 		return a positive number (rotation should be normal (ra));
 	If index is on the bottom half:

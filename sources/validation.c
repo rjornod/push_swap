@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:51:19 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 11:52:12 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:16:32 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,3 +123,7 @@ void	check_duplicate(t_stack *stack, int i)
 		j++;
 	}
 }
+
+// void	validate_min_max(t_stack *stack)
+// {
+// }
