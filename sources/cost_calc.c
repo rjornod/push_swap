@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:30:50 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/14 15:46:16 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:06:15 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	find_target_index(t_stack *stack, int candidate)
 	best_diff = -1;
 
 	i = 0;
-	while (i < stack->elem_count_b)
+	while (i < stack->elem_count_b)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	{
 		if (stack->stack_b[i] < candidate)
 		{
@@ -99,7 +99,7 @@ static int	find_target_index(t_stack *stack, int candidate)
 	}
 	if (target_index == -1)
 		target_index =stack->elem_count_b;
-	{ft_printf("\nthe ideal index for candidate [%d] is [%d]\n", candidate, target_index);}
+	//{ft_printf("\nthe ideal index for candidate [%d] is [%d]\n", candidate, target_index);}
 	return (target_index);
 }
 
@@ -108,32 +108,65 @@ static int	find_target_index(t_stack *stack, int candidate)
 	This function will calculate the total cost (cost_a + cost_b) of each
 	candidate
 */
-int	calculate_cost(t_stack *stack, int candidate)
+// int	calculate_cost(t_stack *stack, int candidate)
+// {
+// 	int	cost_a;
+// 	int	cost_b;
+// 	int	target_b;
+// 	int	total_cost;
+// 	int	overlap;
+// 	int cheapest_total;
+// 	cost_b = 0;
+
+// 	cost_a = get_cost(candidate, stack->elem_count_a);
+// 	target_b = find_target_index(stack, stack->stack_a[candidate]);
+// 	cost_b = get_cost(target_b, stack->elem_count_b);
+// 	if ((cost_a < 0 && cost_b < 0) || (cost_a > 0 && cost_b > 0))
+// 	{
+// 		overlap = ft_min(cost_a, cost_b);
+// 		total_cost = (cost_a + cost_b) - overlap;
+// 	}
+// 	else
+// 		total_cost = cost_a + cost_b;
+// 	cheapest_total = ft_abs(total_cost);
+// 	ft_printf("the total cost to move is [%d]\n", total_cost);
+// 	return (total_cost);
+// }
+
+void	calculate_cheapest(t_stack *stack)
 {
+	int	i;
 	int	cost_a;
 	int	cost_b;
-	// int	abs_a;
-	// int	abs_b;
 	int	target_b;
 	int	total_cost;
 	int	overlap;
-	cost_b = 0;
 
-	cost_a = get_cost(candidate, stack->elem_count_a);
-	target_b = find_target_index(stack, stack->stack_a[candidate]);
-	cost_b = get_cost(target_b, stack->elem_count_b);
-	// abs_a = ft_abs(cost_a);
-	// abs_b = ft_abs(cost_b);
-	if ((cost_a < 0 && cost_b < 0) || (cost_a > 0 && cost_b > 0))
+	stack->cheapest_total = 100000;
+	i = 0;
+	while (i < stack->elem_count_a)
 	{
-		overlap = ft_min(cost_a, cost_b);
-		total_cost = (cost_a + cost_b) - overlap;
+		cost_a = get_cost(i, stack->elem_count_a);
+		target_b = find_target_index(stack, stack->stack_a[i]);
+		cost_b = get_cost(target_b, stack->elem_count_b);
+		if ((cost_a < 0 && cost_b < 0) 
+			|| (cost_a > 0 && cost_b > 0))
+		{
+			overlap = ft_min(cost_a, cost_b);
+			total_cost = (cost_a + cost_b) - overlap;
+		}
+		else
+			total_cost = cost_a + cost_b;
+		if(ft_abs(total_cost) < stack->cheapest_total)
+		{
+			stack->cheapest_total = ft_abs(total_cost);
+			stack->cost_a = cost_a;
+			stack->cost_b = cost_b;
+			stack->cheapest_index = i;
+		}
+		i++;
 	}
-	else
-		total_cost = cost_a + cost_b;
-
-	ft_printf("the total cost to move is [%d]\n", total_cost);
-	return (total_cost);
+	ft_printf("the cheapest number to move is [%d] with [%d] moves\n", stack->stack_a[stack->cheapest_index], stack->cheapest_total);
 }
 
 /*

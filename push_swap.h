@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/14 16:02:36 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:03:47 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,22 @@ typedef struct s_stack
 	int		a_min_elem;
 	int		a_max_index;
 	int		a_min_index;
-	int		cost_of_rot;
+	// int		cheap_cost_a;
+	// int		cheap_cost_b;
+	int		cost_a;
+	int		cost_b;
+	int		cheapest_total;
+	int		cheapest_index;
 }	t_stack;
+
+typedef struct s_candidates
+{
+	int	candidate_index;
+	int	cost_a;
+	int	cost_b;
+	int	total_cost;
+}	t_candidates;
+
 
 void	swap_a(t_stack *stack);
 void	swap_b(t_stack *stack);
@@ -63,5 +77,6 @@ void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count);
 int		get_cost(int index, int size);
 int		calculate_cost(t_stack *stack, int candidate);
 int		*validate_input(int argc, char **argv, t_stack *stack);
-void	move_a_to_b(t_stack *stack, int index, int value, int cost);
+void	move_a_to_b(t_stack *stack);
 int		ft_abs(int n);
+void	calculate_cheapest(t_stack *stack);

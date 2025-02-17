@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:49:20 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/14 16:55:54 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:15:00 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	push_swap(t_stack *stack)
 	int	i;
 	int	j;
 	int	cost;
-	int	cost_to_move;
+	// int	cost_to_move;
 	int	cheapest;
 	int	cheapest_index;
 
@@ -35,23 +35,14 @@ void	push_swap(t_stack *stack)
 	if (stack->elem_count_a > 3)
 		push_b(stack);
 	print_stacks(stack);
-	cheapest = calculate_cost(stack, i);
+	// cheapest = calculate_cost(stack, i);
 	i = stack->elem_count_a;
-	while (i > 3)
+	while (stack->elem_count_a > 3)
 	{
-		while (++j < stack->elem_count_a)
-		{
-			cost = calculate_cost(stack, j);
-			if (cost < cheapest)
-			{
-				cheapest = ft_abs(cost);
-				cheapest_index = j;
-				cost_to_move = cost;
-			}
-			ft_printf("\nthe cheapest number to move is [%d] with [%d] moves\n", cheapest_index, cheapest);
-		}
-		move_a_to_b(stack, cheapest_index, cheapest, cost_to_move);
-		i--;
+		calculate_cheapest(stack);
+		print_stacks(stack);
+		move_a_to_b(stack);
+		ft_printf("-----------------------------------\n");
 	}
 	
 	if (stack->elem_count_a == 3)
@@ -59,19 +50,39 @@ void	push_swap(t_stack *stack)
 	print_stacks(stack);
 }
 
-void	move_a_to_b(t_stack *stack, int cheapest_index, int cheapest, int cost)
+void	move_a_to_b(t_stack *stack)
 {
-	(void)cheapest_index;
-	(void)cheapest;
-	if (cost < 0)
+	while (stack->cost_a > 0 && stack->cost_b > 0)
 	{
-		rev_rot_a(stack);
-		swap_a(stack);
+		rotate_a_b(stack);
+		stack->cost_a--;
+		stack->cost_b--;
 	}
-	else if (cost > 0)
+	while (stack->cost_a < 0 && stack->cost_b < 0)
+	{
+		rev_rot_a_b(stack);
+		stack->cost_a++;
+		stack->cost_b++;
+	}
+	while (stack->cost_a > 0)
 	{
 		rotate_a(stack);
-		swap_a(stack);
+		stack->cost_a--;
+	}
+	while (stack->cost_a < 0)
+	{
+		rev_rot_a(stack);
+		stack->cost_a++;
+	}
+	while (stack->cost_b < 0)
+	{
+		rev_rot_b(stack);
+		stack->cost_b++;
+	}
+	while (stack->cost_b > 0)
+	{
+		rotate_b(stack);
+		stack->cost_b--;
 	}
 	push_b(stack);
 }
