@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:30:50 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/17 17:06:15 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:37:40 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count)
 	STACK A to STACK B. If it finds a number smaller than the candidate it
 	breaks the loop, meaning the number should be inserted at this index
 */
-static int	find_target_index(t_stack *stack, int candidate)
+static int	find_target_asc(int *stack, int elem_count, int candidate)
 {
 	int	i;
 	int	target_index;
@@ -84,11 +84,11 @@ static int	find_target_index(t_stack *stack, int candidate)
 	best_diff = -1;
 
 	i = 0;
-	while (i < stack->elem_count_b)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+	while (i < elem_count)
 	{
-		if (stack->stack_b[i] < candidate)
+		if (stack[i] < candidate)
 		{
-			diff = candidate - stack->stack_b[i];
+			diff = candidate - stack[i];
 			if (best_diff == -1 || diff < best_diff)
 			{
 				best_diff = diff;
@@ -98,8 +98,40 @@ static int	find_target_index(t_stack *stack, int candidate)
 		i++;
 	}
 	if (target_index == -1)
-		target_index =stack->elem_count_b;
-	//{ft_printf("\nthe ideal index for candidate [%d] is [%d]\n", candidate, target_index);}
+		target_index = 0;
+	return (target_index);
+}
+static int	find_target_des(int *stack, int elem_count, int candidate) 
+{
+	int	i;
+	int	target_index;
+	int	best_diff;
+	int	diff;
+
+	i = 0;
+	target_index = -1;
+	best_diff = -1;
+	while (i < elem_count)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+	{
+		if (stack[i] > candidate)
+		{
+			diff = stack[i] - candidate;
+			if (best_diff == -1 || diff < best_diff)
+			{
+				best_diff = diff;
+				target_index = i;
+			}
+		}
+		i++;
+	}
+	if (target_index == -1)
+	{
+		target_index = 0;
+	}
+	else
+		target_index = target_index + 1;
+	ft_printf("for candidate [%d] ", candidate);
+	ft_printf("the target index is [%d]", target_index);
 	return (target_index);
 }
 
@@ -108,38 +140,14 @@ static int	find_target_index(t_stack *stack, int candidate)
 	This function will calculate the total cost (cost_a + cost_b) of each
 	candidate
 */
-// int	calculate_cost(t_stack *stack, int candidate)
-// {
-// 	int	cost_a;
-// 	int	cost_b;
-// 	int	target_b;
-// 	int	total_cost;
-// 	int	overlap;
-// 	int cheapest_total;
-// 	cost_b = 0;
-
-// 	cost_a = get_cost(candidate, stack->elem_count_a);
-// 	target_b = find_target_index(stack, stack->stack_a[candidate]);
-// 	cost_b = get_cost(target_b, stack->elem_count_b);
-// 	if ((cost_a < 0 && cost_b < 0) || (cost_a > 0 && cost_b > 0))
-// 	{
-// 		overlap = ft_min(cost_a, cost_b);
-// 		total_cost = (cost_a + cost_b) - overlap;
-// 	}
-// 	else
-// 		total_cost = cost_a + cost_b;
-// 	cheapest_total = ft_abs(total_cost);
-// 	ft_printf("the total cost to move is [%d]\n", total_cost);
-// 	return (total_cost);
-// }
-
-void	calculate_cheapest(t_stack *stack)
+void	calculate_cheapest_b(t_stack *stack)
 {
 	int	i;
 	int	cost_a;
 	int	cost_b;
 	int	target_b;
 	int	total_cost;
+	int	abs_cost;
 	int	overlap;
 
 	stack->cheapest_total = 100000;
@@ -147,8 +155,55 @@ void	calculate_cheapest(t_stack *stack)
 	while (i < stack->elem_count_a)
 	{
 		cost_a = get_cost(i, stack->elem_count_a);
-		target_b = find_target_index(stack, stack->stack_a[i]);
+		target_b = find_target_des(stack->stack_b, stack->elem_count_b, stack->stack_a[i]);
 		cost_b = get_cost(target_b, stack->elem_count_b);
+		if ((cost_a < 0 && cost_b < 0) 
+			|| (cost_a > 0 && cost_b > 0))
+		{
+			overlap = ft_min(cost_a, cost_b);
+			total_cost = (cost_a + cost_b) - overlap;
+			ft_printf("overlap is [%d]\n", overlap);
+			ft_printf("cost a is [%d]\n", cost_a);
+			ft_printf("cost b is [%d]\n", cost_b);
+			ft_printf("total cost is [%d]\n", total_cost);
+		}
+		else{
+			total_cost = cost_a + cost_b;
+			ft_printf("total cost is [%d]\n", total_cost);}
+		abs_cost = ft_abs(total_cost);
+		if(abs_cost < stack->cheapest_total)
+		{
+			stack->cheapest_total = abs_cost;
+			stack->cost_a = cost_a;
+			stack->cost_b = cost_b;
+			stack->cheapest_index = i;
+		}
+		i++;
+	}
+	ft_printf("the cheapest is [%d]\n", stack->stack_a[stack->cheapest_index]);
+	ft_printf("cheapest cost is [%d]\n", stack->cheapest_total);
+	ft_printf("cheapest cost rotation for a is [%d]\n", stack->cost_a);
+	ft_printf("cheapest cost rotation for b is [%d]\n", stack->cost_b);
+	ft_printf("the index for the cheapest is [%d]\n", stack->cheapest_index);
+}
+
+void	calculate_cheapest_a(t_stack *stack)
+{
+	int	i;
+	int	cost_a;
+	int	cost_b;
+	int	target_a;
+	int	total_cost;
+	int	abs_cost;
+	int	overlap;
+
+	stack->cheapest_total = 100000;
+	i = 0;
+	while (i < stack->elem_count_b)
+	{
+		target_a = find_target_asc(stack->stack_a, stack->elem_count_a, stack->stack_b[i]);
+		cost_a = get_cost(target_a, stack->elem_count_a);
+		cost_b = get_cost(i, stack->elem_count_b);
 		if ((cost_a < 0 && cost_b < 0) 
 			|| (cost_a > 0 && cost_b > 0))
 		{
@@ -157,17 +212,23 @@ void	calculate_cheapest(t_stack *stack)
 		}
 		else
 			total_cost = cost_a + cost_b;
-		if(ft_abs(total_cost) < stack->cheapest_total)
+		abs_cost = ft_abs(total_cost);
+		if(abs_cost < stack->cheapest_total)
 		{
-			stack->cheapest_total = ft_abs(total_cost);
+			stack->cheapest_total = abs_cost;
 			stack->cost_a = cost_a;
 			stack->cost_b = cost_b;
 			stack->cheapest_index = i;
 		}
 		i++;
 	}
-	ft_printf("the cheapest number to move is [%d] with [%d] moves\n", stack->stack_a[stack->cheapest_index], stack->cheapest_total);
+	ft_printf("the cheapest is [%d]\n", stack->stack_b[stack->cheapest_index]);
+	ft_printf("cheapest cost is [%d]\n", stack->cheapest_total);
+	ft_printf("cheapest cost rotation for a is [%d]\n", stack->cost_a);
+	ft_printf("cheapest cost rotation for b is [%d]\n", stack->cost_b);
+	ft_printf("the index for the cheapest is [%d]\n", stack->cheapest_index);
 }
+
 
 /*
 	This function calculates the cost of moving something to stack b based 

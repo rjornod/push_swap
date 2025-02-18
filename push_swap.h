@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/17 16:03:47 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:07:54 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,26 @@ typedef struct s_stack
 	int		a_min_elem;
 	int		a_max_index;
 	int		a_min_index;
-	// int		cheap_cost_a;
-	// int		cheap_cost_b;
 	int		cost_a;
 	int		cost_b;
 	int		cheapest_total;
 	int		cheapest_index;
 }	t_stack;
 
-typedef struct s_candidates
-{
-	int	candidate_index;
-	int	cost_a;
-	int	cost_b;
-	int	total_cost;
-}	t_candidates;
+// Main
+void	push_swap(t_stack *stack);
+void	init_struct(t_stack *stack);
+int		*init_stack_b(t_stack *stack);
+bool	is_sorted(int *sort_stack, int elem_count);
+void	sort_three(t_stack *stack);
 
+// Validation
+int		*validate_input(int argc, char **argv, t_stack *stack);
+int		*one_arg(t_stack *stack, char **argv);
+bool	check_valid_number(const char *str, t_stack *stack);
+void	check_duplicate(t_stack *stack, int i);
 
+// Operations
 void	swap_a(t_stack *stack);
 void	swap_b(t_stack *stack);
 void	push_b(t_stack *stack);
@@ -61,22 +64,17 @@ void	rotate_a_b(t_stack *stack);
 void	rev_rot_a(t_stack *stack);
 void	rev_rot_b(t_stack *stack);
 void	rev_rot_a_b(t_stack *stack);
-int		*one_arg(t_stack *stack, char **argv);
-void	free_array(char **array);
-bool	check_valid_number(const char *str, t_stack *stack);
-void	check_duplicate(t_stack *stack, int i);
-void	push_swap(t_stack *stack);
+
+// Cost calculations and moving
+int		get_cost(int index, int size);
+void	move_a_to_b(t_stack *stack);
+void	move_b_to_a(t_stack *stack);
+void	calculate_cheapest_b(t_stack *stack);
+void	calculate_cheapest_a(t_stack *stack);
+
+// Helper
+int		ft_abs(int n);
 void	error_message(char *message);
 void	print_stacks(t_stack *stack);
-void	print_stacks(t_stack *stack);
-void	init_struct(t_stack *stack);
-int		*init_stack_b(t_stack *stack);
-bool	is_sorted(int *sort_stack, int elem_count);
-void	sort_three(t_stack *stack);
+void	free_array(char **array);
 void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count);
-int		get_cost(int index, int size);
-int		calculate_cost(t_stack *stack, int candidate);
-int		*validate_input(int argc, char **argv, t_stack *stack);
-void	move_a_to_b(t_stack *stack);
-int		ft_abs(int n);
-void	calculate_cheapest(t_stack *stack);
