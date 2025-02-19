@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:49:20 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/18 17:26:02 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:12:56 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ void	push_swap(t_stack *stack)
 	if (stack->elem_count_a > 3)
 		push_b(stack);
 	print_stacks(stack);
-	while (!is_sorted(stack->stack_a, stack->elem_count_a))
-	{
+	// while (!is_sorted(stack->stack_a, stack->elem_count_a))
+	// {
 		while (stack->elem_count_a > 3)
 		{
-			calculate_cheapest_b(stack);
-			print_stacks(stack);
+			find_cheapest_a_to_b(stack);
 			move_a_to_b(stack);
+			print_stacks(stack);
 			ft_printf("------------------------------------------------------\n");
 		}
 		if (stack->elem_count_a == 3)
 			sort_three(stack);
 		while (stack->elem_count_b > 0)
 		{
-			calculate_cheapest_a(stack);
-			print_stacks(stack);
+			find_cheapest_b_to_a(stack);
 			move_b_to_a(stack);
+			print_stacks(stack);
 			ft_printf("------------------------------------------------------\n");
 		}
-	}
+	//}
 	print_stacks(stack);
 	ft_printf("sorted");
 }
@@ -52,46 +52,46 @@ void	move_a_to_b(t_stack *stack)
 {
 	while (stack->cost_a > 0 && stack->cost_b > 0)
 	{
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		rotate_a_b(stack);
 		stack->cost_a--;
 		stack->cost_b--;
 	}
 	while (stack->cost_a < 0 && stack->cost_b < 0)
 	{
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		rev_rot_a_b(stack);
 		stack->cost_a++;
 		stack->cost_b++;
 	}
 	while (stack->cost_a > 0)
 	{
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		rotate_a(stack);
 		stack->cost_a--;
 	}
 	while (stack->cost_a < 0)
 	{
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		rev_rot_a(stack);
 		stack->cost_a++;
 	}
 	while (stack->cost_b < 0)
 	{
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		rev_rot_b(stack);
 		stack->cost_b++;
 	}
 	while (stack->cost_b > 0)
 	{
 		rotate_b(stack);
-		ft_printf("move a to b cost a is [%d]", stack->cost_a);
-		ft_printf("move a to b cost b is [%d]", stack->cost_b);
+		ft_printf("move a to b cost a is [%d]\n", stack->cost_a);
+		ft_printf("move a to b cost b is [%d]\n", stack->cost_b);
 		stack->cost_b--;
 	}
 	push_b(stack);

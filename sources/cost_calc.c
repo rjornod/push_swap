@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:30:50 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/18 17:37:40 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:24:08 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_abs(int n)
 }
 
 /*
-	This function returns the minimum number of 2
+	This function compares 2 digits and returns the minimum of the 2
 */
 int ft_min(int a, int b)
 {
@@ -86,7 +86,7 @@ static int	find_target_asc(int *stack, int elem_count, int candidate)
 	i = 0;
 	while (i < elem_count)
 	{
-		if (stack[i] < candidate)
+		if (stack[i] > candidate)
 		{
 			diff = candidate - stack[i];
 			if (best_diff == -1 || diff < best_diff)
@@ -101,6 +101,10 @@ static int	find_target_asc(int *stack, int elem_count, int candidate)
 		target_index = 0;
 	return (target_index);
 }
+
+/*
+	Finds the target destination in Stack B for the candidate from Stack A
+*/
 static int	find_target_des(int *stack, int elem_count, int candidate) 
 {
 	int	i;
@@ -113,9 +117,9 @@ static int	find_target_des(int *stack, int elem_count, int candidate)
 	best_diff = -1;
 	while (i < elem_count)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	{
-		if (stack[i] > candidate)
+		if (stack[i] < candidate)
 		{
-			diff = stack[i] - candidate;
+			diff = candidate - stack[i];
 			if (best_diff == -1 || diff < best_diff)
 			{
 				best_diff = diff;
@@ -125,13 +129,10 @@ static int	find_target_des(int *stack, int elem_count, int candidate)
 		i++;
 	}
 	if (target_index == -1)
-	{
-		target_index = 0;
-	}
-	else
-		target_index = target_index + 1;
+		target_index = elem_count -1;
+	ft_printf("-----------\n");
 	ft_printf("for candidate [%d] ", candidate);
-	ft_printf("the target index is [%d]", target_index);
+	ft_printf("the target index is [%d]\n", target_index);
 	return (target_index);
 }
 
@@ -140,7 +141,7 @@ static int	find_target_des(int *stack, int elem_count, int candidate)
 	This function will calculate the total cost (cost_a + cost_b) of each
 	candidate
 */
-void	calculate_cheapest_b(t_stack *stack)
+void	find_cheapest_a_to_b(t_stack *stack)
 {
 	int	i;
 	int	cost_a;
@@ -157,20 +158,21 @@ void	calculate_cheapest_b(t_stack *stack)
 		cost_a = get_cost(i, stack->elem_count_a);
 		target_b = find_target_des(stack->stack_b, stack->elem_count_b, stack->stack_a[i]);
 		cost_b = get_cost(target_b, stack->elem_count_b);
+		ft_printf("*****original cost_a - [%d]\n", cost_a);
+		ft_printf("*****original cost_b - [%d]\n", cost_b);
 		if ((cost_a < 0 && cost_b < 0) 
 			|| (cost_a > 0 && cost_b > 0))
 		{
 			overlap = ft_min(cost_a, cost_b);
 			total_cost = (cost_a + cost_b) - overlap;
 			ft_printf("overlap is [%d]\n", overlap);
-			ft_printf("cost a is [%d]\n", cost_a);
-			ft_printf("cost b is [%d]\n", cost_b);
-			ft_printf("total cost is [%d]\n", total_cost);
 		}
-		else{
+		else
 			total_cost = cost_a + cost_b;
-			ft_printf("total cost is [%d]\n", total_cost);}
 		abs_cost = ft_abs(total_cost);
+		ft_printf("cost a is [%d]\n", cost_a);
+		ft_printf("cost b is [%d]\n", cost_b);
+		ft_printf("the absolute cost is [%d]\n", abs_cost);
 		if(abs_cost < stack->cheapest_total)
 		{
 			stack->cheapest_total = abs_cost;
@@ -187,7 +189,7 @@ void	calculate_cheapest_b(t_stack *stack)
 	ft_printf("the index for the cheapest is [%d]\n", stack->cheapest_index);
 }
 
-void	calculate_cheapest_a(t_stack *stack)
+void	find_cheapest_b_to_a(t_stack *stack)
 {
 	int	i;
 	int	cost_a;
@@ -204,14 +206,16 @@ void	calculate_cheapest_a(t_stack *stack)
 		target_a = find_target_asc(stack->stack_a, stack->elem_count_a, stack->stack_b[i]);
 		cost_a = get_cost(target_a, stack->elem_count_a);
 		cost_b = get_cost(i, stack->elem_count_b);
+		ft_printf("****original cost_a - [%d]\n", cost_a);
+		ft_printf("****original cost_b - [%d]\n", cost_b);
 		if ((cost_a < 0 && cost_b < 0) 
 			|| (cost_a > 0 && cost_b > 0))
 		{
 			overlap = ft_min(cost_a, cost_b);
-			total_cost = (cost_a + cost_b) - overlap;
+			total_cost = (ft_abs(cost_a) + ft_abs(cost_b)) - overlap;
 		}
 		else
-			total_cost = cost_a + cost_b;
+			total_cost = ft_abs(cost_a) + ft_abs(cost_b);
 		abs_cost = ft_abs(total_cost);
 		if(abs_cost < stack->cheapest_total)
 		{
