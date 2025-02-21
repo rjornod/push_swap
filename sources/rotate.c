@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:45:46 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/17 17:09:41 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:25:57 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,29 @@ void	rotate_b(t_stack *stack)
 
 void	rotate_a_b(t_stack *stack)
 {
-	rotate_a(stack);
-	rotate_b(stack);
+	int	i;
+	int	temp;
+
+	if (stack->elem_count_a < 2)
+		return ;
+	temp = stack->stack_a[0];
+	i = 0;
+	while (i < stack->elem_count_a - 1)
+	{
+		stack->stack_a[i] = stack->stack_a[i + 1];
+		i++;
+	}
+	stack->stack_a[stack->elem_count_a - 1] = temp;
+	if (stack->elem_count_b < 2)
+		return ;
+	temp = stack->stack_b[0];
+	i = 0;
+	while (i < stack->elem_count_b - 1)
+	{
+		stack->stack_b[i] = stack->stack_b[i + 1];
+		i++;
+	}
+	stack->stack_b[stack->elem_count_b - 1] = temp;
 	ft_printf("rr\n");
 }
 
@@ -77,7 +98,7 @@ void	rev_rot_a(t_stack *stack)
 	int	i;
 	int	temp;
 
-	if (stack->elem_count_b < 2)
+	if (stack->elem_count_a < 2)
 		return ;
 	i = stack->elem_count_a - 1;
 	temp = stack->stack_a[i];

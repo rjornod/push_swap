@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:25:58 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/14 14:44:59 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:28:00 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	main(int argc, char **argv)
 			error_message("Error\n");
 	init_struct(stack);
 	init_stack_b(stack);
-	print_stacks(stack);
+	//print_stacks(stack);
 	push_swap(stack);
-	print_stacks(stack);
+	//print_stacks(stack);
 	free(stack->stack_a);
 	free(stack->stack_b);
 	free(stack);

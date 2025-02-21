@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/19 15:11:53 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:56:37 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	move_a_to_b(t_stack *stack);
 void	move_b_to_a(t_stack *stack);
 void	find_cheapest_a_to_b(t_stack *stack);
 void	find_cheapest_b_to_a(t_stack *stack);
+void	final_rotate(t_stack *stack);
 
 // Helper
 int		ft_abs(int n);

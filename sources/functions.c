@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:19:49 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 14:32:18 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:24:52 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,18 @@ void	swap_b(t_stack *stack)
 
 void	swap_a_b(t_stack *stack)
 {
-	swap_a(stack);
-	swap_b(stack);
+	int	temp;
+
+	if (!stack || !stack->stack_b || stack->elem_count_b < 2)
+		return ;
+	temp = stack->stack_b[0];
+	stack->stack_b[0] = stack->stack_b[1];
+	stack->stack_b[1] = temp;
+	if (!stack || !stack->stack_a || stack->elem_count_a < 2)
+		return ;
+	temp = stack->stack_a[0];
+	stack->stack_a[0] = stack->stack_a[1];
+	stack->stack_a[1] = temp;
 	ft_printf("ss\n");
 }
 

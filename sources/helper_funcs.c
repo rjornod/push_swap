@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:54:23 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/13 17:02:36 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:35:41 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	*init_stack_b(t_stack *stack)
 	i = 0;
 	stack->stack_b = (int *)ft_calloc((stack->elem_total), sizeof (int));
 	if (!stack->stack_b)
-		error_message("error assigning memory to stack b in init_stack_b");
+		error_message("Error assigning memory to stack b in init_stack_b");
 	return (stack->stack_b);
 }
 
@@ -50,8 +50,10 @@ void	print_stacks(t_stack *stack)
 	ft_printf("\n\n");
 }
 
+//before finishing comment out the fprintf and use write
 void	error_message(char *message)
 {
+	//write(2, message, 36);
 	ft_printf("%s", message);
 	exit(EXIT_FAILURE);
 }
