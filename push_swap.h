@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/21 14:56:37 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:38:12 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		*validate_input(int argc, char **argv, t_stack *stack);
 int		*one_arg(t_stack *stack, char **argv);
 bool	check_valid_number(const char *str, t_stack *stack);
 void	check_duplicate(t_stack *stack, int i);
+void	validate_min_max(t_stack *stack, const char *str);
 
 // Operations
 void	swap_a(t_stack *stack);

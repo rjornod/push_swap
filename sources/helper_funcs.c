@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_funcs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:54:23 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/21 14:35:41 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:44:59 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ void	init_struct(t_stack *stack)
 
 int	*init_stack_b(t_stack *stack)
 {
-	int	i;
-
-	i = 0;
 	stack->stack_b = (int *)ft_calloc((stack->elem_total), sizeof (int));
 	if (!stack->stack_b)
-		error_message("Error assigning memory to stack b in init_stack_b");
+		error_message("Error\n");
 	return (stack->stack_b);
 }
 
@@ -53,8 +50,7 @@ void	print_stacks(t_stack *stack)
 //before finishing comment out the fprintf and use write
 void	error_message(char *message)
 {
-	//write(2, message, 36);
-	ft_printf("%s", message);
+	write(2, message, 6);
 	exit(EXIT_FAILURE);
 }
 
@@ -73,5 +69,3 @@ void	free_array(char **array)
 		free(array[i++]);
 	free(array);
 }
-
-

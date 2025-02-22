@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:25:58 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/21 14:28:00 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:34:51 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack = NULL;
+	t_stack	*stack;
+
+	stack = NULL;
 	if (argc == 1)
 		return (-1);
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
-		error_message("Error assigning memory in main");
+		error_message("Error\n");
 	ft_memset(stack, 0, sizeof(t_stack));
 	stack->digits = NULL;
 	if (validate_input(argc, argv, stack) == NULL)
-			error_message("Error\n");
+		error_message("Error\n");
 	init_struct(stack);
 	init_stack_b(stack);
-	//print_stacks(stack);
 	push_swap(stack);
-	//print_stacks(stack);
 	free(stack->stack_a);
 	free(stack->stack_b);
 	free(stack);

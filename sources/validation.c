@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:51:19 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/21 14:09:30 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:37:57 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ bool	check_valid_number(const char *str, t_stack *stack)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			free(stack->stack_a); 
+			free(stack->stack_a);
 			free_array(stack->digits);
 			free(stack);
-			error_message("Invalid number in check valid input\n");
+			error_message("Error\n");
 		}
 		i++;
 	}
@@ -50,8 +50,8 @@ int	*validate_input(int argc, char **argv, t_stack *stack)
 	int	i;
 
 	if (argc == 2)
-	{		
-		if(one_arg(stack, argv) == NULL)
+	{
+		if (one_arg(stack, argv) == NULL)
 			error_message("Error\n");
 	}
 	else
@@ -59,11 +59,12 @@ int	*validate_input(int argc, char **argv, t_stack *stack)
 		stack->elem_total = argc - 1;
 		stack->stack_a = (int *)malloc((stack->elem_total) * sizeof(int));
 		if (!stack->stack_a)
-			error_message("error assigning memory to stack_a in conver input");
+			error_message("Error\n");
 		i = 0;
 		while (i < stack->elem_total)
 		{
 			check_valid_number(argv[i + 1], stack);
+			validate_min_max(stack, argv[i + 1]);
 			stack->stack_a[i] = ft_atoi(argv[i + 1]);
 			check_duplicate(stack, i);
 			i++;
@@ -79,7 +80,7 @@ int	*one_arg(t_stack *stack, char **argv)
 	(void) argv;
 	stack->digits = ft_split(argv[1], ' ');
 	if (!stack->digits)
-		return (ft_printf("Error with array in one_arg\n"), free(stack), NULL);
+		return (free(stack), error_message("Error\n"), NULL);
 	stack->digi_count = 0;
 	while (stack->digits[stack->digi_count])
 		stack->digi_count++;
@@ -118,12 +119,35 @@ void	check_duplicate(t_stack *stack, int i)
 			free(stack->stack_a);
 			free_array(stack->digits);
 			free(stack);
-			error_message("number exists already");
+			error_message("Error\n");
 		}
 		j++;
 	}
 }
 
-// void	validate_min_max(t_stack *stack)
-// {
-// }
+void	validate_min_max(t_stack *stack, const char *str)
+{
+    long long num = 0;
+    int sign = 1;
+    int i = 0;
+
+    while (str[i])
+    {
+		num = num * 10 + (str[i] - '0');
+		if (sign == 1 && num > INT_MAX)
+		{
+			free(stack->stack_a);
+			free_array(stack->digits);
+			free(stack);
+			error_message("Error\n");
+		}
+		if (sign == -1 && -num < INT_MIN)
+		{
+			free(stack->stack_a);
+			free_array(stack->digits);
+			free(stack);
+			error_message("Error\n");
+		}
+		i++;
+	}
+}
