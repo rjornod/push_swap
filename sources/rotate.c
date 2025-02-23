@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:45:46 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/21 16:25:57 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/02/23 16:40:39 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,32 +127,4 @@ void	rev_rot_b(t_stack *stack)
 	}
 	stack->stack_b[0] = temp;
 	ft_printf("rrb\n");
-}
-
-void	rev_rot_a_b(t_stack *stack)
-{
-	int	i;
-	int	temp;
-
-	if (stack->elem_count_b < 2)
-		return ;
-	i = stack->elem_count_a - 1;
-	temp = stack->stack_a[i];
-	while (i > 0)
-	{
-		stack->stack_a[i] = stack->stack_a[i - 1];
-		i--;
-	}
-	stack->stack_a[0] = temp;
-	if (stack->elem_count_b < 2)
-		return ;
-	i = stack->elem_count_b - 1;
-	temp = stack->stack_b[i];
-	while (i > 0)
-	{
-		stack->stack_b[i] = stack->stack_b[i - 1];
-		i--;
-	}
-	stack->stack_b[0] = temp;
-	ft_printf("rrr\n");
 }

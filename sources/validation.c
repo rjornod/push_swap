@@ -6,7 +6,7 @@
 /*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:51:19 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/22 16:37:57 by roberto          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:41:58 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	*one_arg(t_stack *stack, char **argv)
 {
 	int		i;
 
-	(void) argv;
 	stack->digits = ft_split(argv[1], ' ');
 	if (!stack->digits)
 		return (free(stack), error_message("Error\n"), NULL);
@@ -86,7 +85,7 @@ int	*one_arg(t_stack *stack, char **argv)
 		stack->digi_count++;
 	if (stack->digi_count == 1)
 		return (free_array(stack->digits), free(stack),
-			ft_printf("Error\n only one digit in string input\n"), NULL);
+			error_message("Error\n"), NULL);
 	stack->elem_total = stack->digi_count;
 	stack->stack_a = (int *)malloc((stack->elem_total) * sizeof(int));
 	if (!stack->stack_a)
@@ -127,21 +126,23 @@ void	check_duplicate(t_stack *stack, int i)
 
 void	validate_min_max(t_stack *stack, const char *str)
 {
-    long long num = 0;
-    int sign = 1;
-    int i = 0;
+	long long	num;
+	int			sign;
+	int			i;
 
-    while (str[i])
-    {
+	i = 0;
+	sign = 1;
+	while (str[i])
+	{
 		num = num * 10 + (str[i] - '0');
-		if (sign == 1 && num > INT_MAX)
+		if (sign == 1 && num > 2147483647)
 		{
 			free(stack->stack_a);
 			free_array(stack->digits);
 			free(stack);
 			error_message("Error\n");
 		}
-		if (sign == -1 && -num < INT_MIN)
+		if (sign == -1 && (-num) < -2147483648)
 		{
 			free(stack->stack_a);
 			free_array(stack->digits);

@@ -6,63 +6,11 @@
 /*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 11:30:50 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/22 16:38:42 by roberto          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:34:08 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-/*
-	This function finds the absolute value of a number. 
-	ex: if its negative it becomes positive
-*/
-int	ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	else
-		return (n);
-}
-
-/*
-	This function compares 2 digits and returns the minimum of the 2
-*/
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	else
-		return (b);
-}
-
-/*
-	This function finds the MIN and MAX numbers and their position
-	on any given stack
-*/
-void	find_high_low_a(t_stack *stack, int *sort_stack, int elem_count)
-{
-	int	i;
-
-	i = 0;
-	stack->a_max_elem = sort_stack[i];
-	stack->a_max_index = i;
-	stack->a_min_elem = sort_stack[i];
-	stack->a_min_index = i;
-	while (i < elem_count)
-	{
-		if (sort_stack[i] > stack->a_max_elem)
-		{
-			stack->a_max_elem = sort_stack[i];
-			stack->a_max_index = i;
-		}
-		else if (sort_stack[i] < stack->a_min_elem)
-		{
-			stack->a_min_elem = sort_stack[i];
-			stack->a_min_index = i;
-		}
-		i++;
-	}
-}
 
 /*
 	....... In progress .......
@@ -101,7 +49,7 @@ static int	find_target_asc(int *stack, int elem_count, int candidate)
 /*
 	Finds the target destination in Stack B for the candidate from Stack A
 */
-static int	find_target_des(int *stack, int elem_count, int candidate)
+static int	target_desc(int *stack, int elem_count, int candidate)
 {
 	int	i;
 	int	target_index;
@@ -139,7 +87,7 @@ void	find_cheapest_a_to_b(t_stack *stack)
 	int	i;
 	int	cost_a;
 	int	cost_b;
-	int	target_b;
+	int	target;
 	int	total_cost;
 	int	overlap;
 
@@ -148,8 +96,9 @@ void	find_cheapest_a_to_b(t_stack *stack)
 	while (i < stack->elem_count_a)
 	{
 		cost_a = get_cost(i, stack->elem_count_a);
-		target_b = find_target_des(stack->stack_b, stack->elem_count_b, stack->stack_a[i]);
-		cost_b = get_cost(target_b, stack->elem_count_b);
+		target = target_desc(stack->stack_b, 
+				stack->elem_count_b, stack->stack_a[i]);
+		cost_b = get_cost(target, stack->elem_count_b);
 		if ((cost_a < 0 && cost_b < 0)
 			|| (cost_a > 0 && cost_b > 0))
 		{
@@ -176,7 +125,6 @@ void	find_cheapest_b_to_a(t_stack *stack)
 	int	cost_b;
 	int	target_a;
 	int	total_cost;
-	//int	abs_cost;
 	int	overlap;
 
 	stack->cheapest_total = 100000;
@@ -204,7 +152,6 @@ void	find_cheapest_b_to_a(t_stack *stack)
 		i++;
 	}
 }
-
 
 /*
 	This function calculates the cost of moving something to stack b based 

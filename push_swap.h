@@ -6,7 +6,7 @@
 /*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 10:35:41 by rojornod          #+#    #+#             */
-/*   Updated: 2025/02/22 16:38:12 by roberto          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:42:43 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	final_rotate(t_stack *stack);
 
 // Helper
 int		ft_abs(int n);
+int		ft_min(int a, int b);
 void	error_message(char *message);
 void	print_stacks(t_stack *stack);
 void	free_array(char **array);

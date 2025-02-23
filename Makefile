@@ -6,6 +6,8 @@ SRC = 	sources/push_swap.c \
 		sources/validation.c \
 		sources/algorithm.c \
 		sources/cost_calc.c \
+		sources/movement.c \
+		sources/helper_funcs2.c \
 		sources/helper_funcs.c
 OBJS = $(SRC:.c=.o)
 INCLUDES = -Ilibft -Ift_printf
